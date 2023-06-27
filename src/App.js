@@ -10,7 +10,7 @@ function App() {
         <Route path="/login" element={<Login />}></Route>
       </Routes>
       <header className="App-header">
-        <NavLink to="/login">Login</NavLink>
+        <NavLink className="text-red-700" to="/login">Login</NavLink>
         <img src={logo} className="App-logo" alt="logo" />
         <p>
           Edit <code>src/App.js</code> and save to reload.

@@ -1,5 +1,5 @@
 function Login() {
-  return <>LOgin</>;
+  return <div className=""></div>;
 }
 
 export default Login;

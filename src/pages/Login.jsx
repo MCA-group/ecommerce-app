@@ -1,13 +1,24 @@
-import { useState } from "react";
-import { NavLink } from "react-router-dom";
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect, useState } from "react";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import { login } from "../services/Auth";
+import { useAuth } from "../contexts/Auth";
 
 function Login() {
+  const { loggedInStatus, authDispatch } = useAuth();
+  const navigate = useNavigate();
+  const {
+    state: { from },
+  } = useLocation();
   const [emailEntered, setEmailEntered] = useState("");
   const [passwordEntered, setPasswordEntered] = useState("");
 
+  useEffect(() => {
+    if (loggedInStatus) navigate(from);
+  }, [loggedInStatus]);
   return (
     <div className="flex justify-center items-center">
-      <div className="p-5 w-[23rem]">
+      <div className="p-5 w-[23rem] shadow-lg my-3">
         <h2 className="uppercase text-2xl text-blue-700 font-bold my-3 py-5 border-b-4 border-blue-700 w-fit-content">
           LOGIN
         </h2>
@@ -26,7 +37,13 @@ function Login() {
             value={passwordEntered}
             onChange={(e) => setPasswordEntered(e.target.value)}
           />
-          <button className="my-5 bg-blue-700 hover:bg-blue-500 text-white p-3 rounded-xl w-full">
+          <button
+            className="my-5 bg-blue-700 hover:bg-blue-500 text-white p-3 rounded-xl w-full"
+            onClick={(e) => {
+              e.preventDefault();
+              login(emailEntered, passwordEntered, authDispatch);
+            }}
+          >
             SIGN IN
           </button>
         </form>

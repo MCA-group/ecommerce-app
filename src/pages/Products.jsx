@@ -1,6 +1,21 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect, useState } from "react";
 import ProductCard from "../components/ProductCard";
+import { getAllProducts } from "../services/Product";
+import { useAuth } from "../contexts/Auth";
 
 function ProductsList() {
+  const { allProducts, authDispatch } = useAuth();
+
+  const [productsList, setProductsList] = useState([]);
+  console.log("Prods", allProducts);
+  useEffect(() => {
+    getAllProducts(authDispatch);
+  }, []);
+
+  useEffect(() => {
+    setProductsList(allProducts);
+  }, [allProducts]);
   return (
     <div>
       <p className="my-3 py-5">
@@ -8,16 +23,10 @@ function ProductsList() {
           Products
         </span>
       </p>
-      <div className="flex justify-center">
-        <ProductCard
-          product={{
-            id: "1",
-            title: "WOMEN's cloth",
-            price: 1200,
-            discountedPrice: 1000,
-            imageURL: "https://picsum.photos/200/300",
-          }}
-        />
+      <div className="flex justify-center flex-wrap flex-col md:flex-row">
+        {productsList.map((product) => (
+          <ProductCard product={product} key={product.id} />
+        ))}
       </div>
     </div>
   );

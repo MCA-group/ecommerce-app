@@ -12,6 +12,7 @@ import Cart from "./pages/Cart";
 import Wishlist from "./pages/Wishlist";
 import UserProfile from "./pages/UserProfile";
 import { RequiresAuth } from "./utils/RequiresAuth";
+import CreateProduct from "./seller/Pages/CreateProduct";
 
 function App() {
   return (
@@ -44,6 +45,14 @@ function App() {
           element={
             <RequiresAuth>
               <UserProfile />
+            </RequiresAuth>
+          }
+        />
+        <Route
+          path="/seller/createProduct"
+          element={
+            <RequiresAuth>
+              <CreateProduct />
             </RequiresAuth>
           }
         />

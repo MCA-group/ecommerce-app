@@ -1,6 +1,7 @@
 export const initialState = {
   isLoggedIn: false,
   userDetails: {},
+  allProducts: [],
 };
 
 export const authReducer = (result, action) => {
@@ -14,6 +15,8 @@ export const authReducer = (result, action) => {
     case "LOGOUT_USER":
       return { ...result, userDetails: {}, isLoggedIn: false };
 
+    case "PRODUCT_LIST":
+      return { ...result, allProducts: action.payload };
     default:
       return result;
   }

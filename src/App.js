@@ -11,6 +11,7 @@ import ProductDetail from "./pages/ProductDetail";
 import Cart from "./pages/Cart";
 import Wishlist from "./pages/Wishlist";
 import UserProfile from "./pages/UserProfile";
+import { RequiresAuth } from "./utils/RequiresAuth";
 
 function App() {
   return (
@@ -22,9 +23,30 @@ function App() {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/products" element={<ProductsList />} />
         <Route path="/product/:productId" element={<ProductDetail />} />
-        <Route path="/cart" element={<Cart />} />
-        <Route path="/wishlist" element={<Wishlist />} />
-        <Route path="/profile" element={<UserProfile />} />
+        <Route
+          path="/cart"
+          element={
+            <RequiresAuth>
+              <Cart />
+            </RequiresAuth>
+          }
+        />
+        <Route
+          path="/wishlist"
+          element={
+            <RequiresAuth>
+              <Wishlist />
+            </RequiresAuth>
+          }
+        />
+        <Route
+          path="/profile"
+          element={
+            <RequiresAuth>
+              <UserProfile />
+            </RequiresAuth>
+          }
+        />
       </Routes>
       {/* <NavLink className="text-red-700 bg-pink-300" to="/login">
         Login

@@ -1,10 +1,10 @@
 function ProductCard({ product }) {
-  const { id, imageURL, title, price, discountedPrice } = product;
+  const { id, imageUrl, title, price, discountedPrice } = product;
 
   return (
-    <div key={id} className="shadow hover:shadow-lg text-left">
+    <div key={id} className="shadow hover:shadow-lg text-left m-3 ">
       <img
-        src={imageURL}
+        src={imageUrl}
         alt={`${title}`}
         className="h-[25rem] w-[20rem] object-cover"
       />

@@ -12,6 +12,7 @@ export const AuthProvider = ({ children }) => {
         authDispatch: dispatch,
         loggedInStatus: state?.isLoggedIn,
         userDetails: state?.userDetails,
+        allProducts: state?.allProducts,
       }}
     >
       {children}

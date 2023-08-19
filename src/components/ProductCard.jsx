@@ -1,6 +1,20 @@
+import { useAuth } from "../contexts/Auth";
+import { addToCart } from "../services/cart";
+
 function ProductCard({ product }) {
   const { id, imageUrl, title, price, discountedPrice } = product;
 
+  const { authDispatch } = useAuth();
+
+  function addToCartHandler() {
+    addToCart(
+      {
+        productId: id,
+        size: "S",
+      },
+      authDispatch
+    );
+  }
   return (
     <div key={id} className="shadow hover:shadow-lg text-left m-3 ">
       <img
@@ -19,6 +33,12 @@ function ProductCard({ product }) {
             {Math.round((discountedPrice / price) * 100)}%
           </span>
         </p>
+        <button
+          className="text-white hover:bg-blue-400 bg-blue-700 p-3 rounded-lg mb-3"
+          onClick={addToCartHandler}
+        >
+          Add to Cart
+        </button>
       </div>
     </div>
   );

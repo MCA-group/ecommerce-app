@@ -13,6 +13,7 @@ export const AuthProvider = ({ children }) => {
         loggedInStatus: state?.isLoggedIn,
         userDetails: state?.userDetails,
         allProducts: state?.allProducts,
+        cart: state?.userCart,
       }}
     >
       {children}

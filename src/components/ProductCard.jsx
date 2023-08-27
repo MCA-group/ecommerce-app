@@ -21,6 +21,7 @@ function ProductCard({ product }) {
         src={imageUrl}
         alt={`${title}`}
         className="h-[25rem] w-[20rem] object-cover"
+        loading="lazy"
       />
       <div className="py-3 px-3">
         <p>{title}</p>

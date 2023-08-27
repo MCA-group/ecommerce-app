@@ -1,33 +1,78 @@
-import { useEffect } from "react";
-import { useAuth } from "../contexts/Auth";
-import { getCartItems } from "../services/cart";
-import CartItemCard from "../components/CartItemCard";
 import { useNavigate } from "react-router";
+import { useAuth } from "../contexts/Auth";
+import { useEffect } from "react";
+import { createOrder, createPayment } from "../services/orders";
+import CartItemCard from "../components/CartItemCard";
 
-function Cart() {
-  const { cart, authDispatch } = useAuth();
+function Checkout() {
+  const { authDispatch, orders } = useAuth();
   const navigate = useNavigate();
-
+  console.log("orders,", orders);
   useEffect(() => {
-    getCartItems(authDispatch);
+    createOrder(
+      {
+        firstName: "vinayak2",
+        lastName: "Zarmariya",
+        streetAddress: "123 Main St",
+        city: "Anytown",
+        state: "CA",
+        zipCode: "12345",
+        mobile: "555-555-1234",
+      },
+      authDispatch
+    );
   }, []);
 
-  const { discounte, totalDiscountedPrice, totalItem, totalPrice, cartItems } =
-    cart;
+  const {
+    orderItems,
+    shippingAddress,
+    // : {
+    //   city,
+    //   firstName,
+    //   lastName,
+    //   mobile,
+    //   state,
+    //   streetAddress,
+    //   zipCode,
+    // },
+    discounte,
+    totalDiscountedPrice,
+    totalItem,
+    totalPrice,
+    id,
+  } = orders;
+
+  function placeOrderHandler() {
+    createPayment(id, navigate, authDispatch);
+  }
+
   return (
     <>
       <p className="my-3 py-5">
         <span className="uppercase text-2xl text-blue-700 font-bold  border-b-4 border-blue-700 w-fit-content">
-          CART
+          CHECKOUT
         </span>
       </p>
+      <div className="flex justify-center">
+        <div className="flex flex-col items-center border my-6 mx-3 py-3 px-5 shadow-md w-3/5 ">
+          <p className="font-lg font-semibold">Address:</p>
+          <p className="font-semibold">
+            {shippingAddress?.firstName}, {shippingAddress?.lastName}
+          </p>
+          <p>
+            {shippingAddress?.streetAddress}, {shippingAddress?.city},{" "}
+            {shippingAddress?.state}, {shippingAddress?.zipCode}
+          </p>
+          <p>Mobile number: {shippingAddress?.mobile}</p>
+        </div>
+      </div>
       <div className="flex justify-center flex-wrap">
         <div className="w-[40rem]">
-          {cartItems?.length === 0 ? (
+          {orderItems?.length === 0 ? (
             <p>No items in cart</p>
           ) : (
             <>
-              {cartItems?.map((item) => (
+              {orderItems?.map((item) => (
                 <CartItemCard itemDetails={item} key={item.id} />
               ))}
             </>
@@ -54,9 +99,9 @@ function Cart() {
             </p>
             <button
               className="text-white hover:bg-blue-400 bg-blue-700 p-3 rounded-lg mb-3"
-              onClick={() => navigate("/checkout")}
+              onClick={() => placeOrderHandler()}
             >
-              Checkout
+              Place Order
             </button>
           </div>
         </div>
@@ -65,4 +110,4 @@ function Cart() {
   );
 }
 
-export default Cart;
+export default Checkout;

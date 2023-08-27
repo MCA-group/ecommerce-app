@@ -15,6 +15,8 @@ import Wishlist from "./pages/Wishlist";
 import UserProfile from "./pages/UserProfile";
 import { RequiresAuth } from "./utils/RequiresAuth";
 import CreateProduct from "./seller/Pages/CreateProduct";
+import Checkout from "./pages/Checkout";
+import OrderSuccessful from "./pages/OrderSuccessful";
 
 function App() {
   return (
@@ -50,6 +52,15 @@ function App() {
             </RequiresAuth>
           }
         />
+        <Route
+          path="/checkout"
+          element={
+            <RequiresAuth>
+              <Checkout />
+            </RequiresAuth>
+          }
+        />
+        <Route path={`/payment/:orderID`} element={<OrderSuccessful />} />
         <Route
           path="/seller/createProduct"
           element={

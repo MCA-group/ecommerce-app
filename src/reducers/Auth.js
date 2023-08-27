@@ -3,6 +3,7 @@ export const initialState = {
   userDetails: {},
   allProducts: [],
   userCart: [],
+  orders: {},
 };
 
 export const authReducer = (result, action) => {
@@ -21,6 +22,9 @@ export const authReducer = (result, action) => {
 
     case "GET_CART":
       return { ...result, userCart: action.payload };
+
+    case "GET_ORDER_DETAILS":
+      return { ...result, orders: action.payload };
 
     default:
       return result;
